@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Школьный Теннис</title>
+  <!-- SEO и мета-теги -->
+  <meta name="description" content="Школьный теннис – место, где растут чемпионы. Узнайте о лучших игроках, новостях спорта и свяжитесь с нами.">
+  <meta name="keywords" content="школьный теннис, новости, лучшие игроки, контакты, спорт">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <!-- Подключение Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Сброс стилей */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    /* CSS-переменные */
+    :root {
+      --primary-color: #e60000;
+      --secondary-color: #0033cc;
+      --text-color: #fff;
+      --hover-color: #ffd700;
+      --bg-overlay: rgba(0, 0, 0, 0.6);
+      --nav-bg: rgba(0, 0, 0, 0.8);
+      --section-bg: rgba(0, 0, 0, 0.5);
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Roboto', Arial, sans-serif;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: var(--text-color);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    header {
+      background-color: var(--bg-overlay);
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 3em;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+      animation: fadeIn 2s ease-in;
+    }
+    /* Навигация */
+    nav {
+      background: var(--nav-bg);
+      display: flex;
+      justify-content: center;
+      padding: 10px;
+      flex-wrap: wrap;
+    }
+    nav a {
+      color: var(--text-color);
+      text-decoration: none;
+      margin: 5px 15px;
+      font-size: 1.1em;
+      transition: color 0.3s;
+      position: relative;
+    }
+    nav a:hover,
+    nav a.active {
+      color: var(--hover-color);
+    }
+    main {
+      padding: 20px;
+      max-width: 1200px;
+      margin: 20px auto;
+    }
+    section {
+      background-color: var(--section-bg);
+      border-radius: 8px;
+      padding: 40px 20px;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      animation: fadeIn 2s ease-in;
+    }
+    p {
+      text-align: justify;
+      margin-bottom: 15px;
+    }
+    /* Стили карточек игроков */
+    .player {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+      padding-bottom: 20px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .player:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.4);
+    }
+    .player:last-child {
+      border-bottom: none;
+    }
+    .player img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 20px;
+      border: 5px solid var(--text-color);
+    }
+    .player h3 {
+      margin: 0;
+      font-size: 2em;
+    }
+    .player p {
+      margin: 5px 0 0;
+    }
+    /* Стили для списка Топ-3 */
+    ol {
+      padding-left: 20px;
+    }
+    ol li {
+      margin-bottom: 15px;
+    }
+    ol li h3 {
+      margin: 0;
+      font-size: 1.8em;
+    }
+    /* Анимация появления */
+    .fade-in {
+      animation: fadeIn 2s ease-in;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    /* Кнопка "Наверх" */
+    #back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: var(--nav-bg);
+      color: var(--text-color);
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 1000;
+    }
+    #back-to-top.show {
+      opacity: 1;
+    }
+    /* Слайдер новостей */
+    .slider {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+    }
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    .slide {
+      min-width: 100%;
+      box-sizing: border-box;
+      padding: 20px;
+      text-align: center;
+    }
+    .slide img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    .slider .prev,
+    .slider .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0,0,0,0.5);
+      border: none;
+      color: var(--text-color);
+      font-size: 2em;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+    .slider .prev {
+      left: 10px;
+    }
+    .slider .next {
+      right: 10px;
+    }
+    /* Стили формы контактов */
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .contact-form label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 4px;
+    }
+    .contact-form button {
+      background-color: var(--primary-color);
+      color: var(--text-color);
+      border: none;
+      padding: 10px 20px;
+      font-size: 1em;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .contact-form button:hover {
+      background-color: var(--hover-color);
+    }
+    /* Адаптивные стили */
+    @media (max-width: 768px) {
+      .player {
+        flex-direction: column;
+        text-align: center;
+      }
+      .player img {
+        margin-bottom: 15px;
+      }
+      nav a {
+        margin: 5px 10px;
+      }
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: var(--nav-bg);
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <!-- Шапка сайта -->
+  <header>
+    <h1>Школьный Теннис</h1>
+  </header>
+  
+  <!-- Основное меню -->
+  <nav aria-label="Основное меню">
+    <a href="#about" class="nav-link">О Теннисе</a>
+    <a href="#players" class="nav-link">Лучшие Игроки</a>
+    <a href="#top3" class="nav-link">Топ 3</a>
+    <a href="#news" class="nav-link">Новости</a>
+    <a href="#contact" class="nav-link">Контакты</a>
+  </nav>
+
+  <!-- Основной контент -->
+  <main>
+    <!-- Раздел: О школьном теннисе -->
+    <section id="about">
+      <h2>О школьном теннисе</h2>
+      <p>
+        Школьный теннис – это не только спортивные соревнования, но и возможность развивать дисциплину, стратегическое мышление и командный дух. Наши тренировки направлены на формирование уверенности в себе и мастерства.
+      </p>
+      <p>
+        Здесь вы узнаете о правилах игры, тренировочных методиках и достижениях наших юных спортсменов.
+      </p>
+    </section>
+
+    <!-- Раздел: Лучшие Игроки -->
+    <section id="players">
+      <h2>Лучшие Игроки</h2>
+      
+      <div class="player">
+        <img src="2025-02-12 15.42.46.jpg" alt="Шмель">
+        <div>
+          <h3>Шмель</h3>
+          <p>Величавый воин, о его адаптивности ходят легенды. Его техника – настоящая магия на корте.</p>
+        </div>
+      </div>
+
+      <div class="player">
+        <img src="2025-02-12 15.42.49.jpg" alt="Бахмут">
+        <div>
+          <h3>Бахмут</h3>
+          <p>Стальные нервы и мастерство делают его одним из самых выдающихся игроков.</p>
+        </div>
+      </div>
+
+      <div class="player">
+        <img src="2025-02-12 15.42.53.jpg" alt="Anal">
+        <div>
+          <h3>Anal</h3>
+          <p>Уникальные приёмы и скорость реакции – его секрет побед.</p>
+        </div>
+      </div>
+
+      <div class="player">
+        <img src="2025-02-12 15.42.44.jpg" alt="Роберт">
+        <div>
+          <h3>Роберт</h3>
+          <p>Человек слова и действий. Его подача и защита оставляют соперников без шансов.</p>
+        </div>
+      </div>
+      
+      <div class="player">
+        <img src="2025-02-12 15.42.41.jpg" alt="Сослик (Шкед)">
+        <div>
+          <h3>Сослик (Шкед)</h3>
+          <p>Пусть ещё учится держать ракетку, но уже демонстрирует задатки будущего чемпиона.</p>
+        </div>
+      </div>
+
+      <div class="player">
+        <img src="2025-02-12 15.42.37.jpg" alt="Владос">
+        <div>
+          <h3>Владос</h3>
+          <p>Защитник, способный остановить любую атаку, несмотря на отдельные промахи.</p>
+        </div>
+      </div>
+
+      <div class="player">
+        <img src="2025-02-12 15.42.32.jpg" alt="Амир">
+        <div>
+          <h3>Амир</h3>
+          <p>Быстро учится и развивается – его потенциал обещает новые рекорды.</p>
+        </div>
+      </div>
+
+      <div class="player">
+        <img src="2025-02-12 15.42.29.jpg" alt="Булыч">
+        <div>
+          <h3>Булыч</h3>
+          <p>Первопроходец, оставивший след в истории школьного тенниса.</p>
+        </div>
+      </div>
+
+      <div class="player">
+        <img src="2025-02-12 15.42.26.jpg" alt="Димон">
+        <div>
+          <h3>Димон</h3>
+          <p>Его фирменное управление мячом восхищает всех болельщиков.</p>
+        </div>
+      </div>
+
+      <div class="player">
+        <img src="2025-02-12 15.42.22.jpg" alt="Денчик">
+        <div>
+          <h3>Денчик</h3>
+          <p>Чемпион по Standoff 2 – виртуоз не только в киберспорте, но и на корте.</p>
+        </div>
+      </div>
+
+      <div class="player">
+        <img src="2025-02-12 15.42.19.jpg" alt="Шина">
+        <div>
+          <h3>Шина</h3>
+          <p>Грация и уверенность – её оружие на корте, позволяющее выигрывать матчи.</p>
+        </div>
+      </div>
+
+      <div class="player">
+        <img src="2025-02-12 15.42.05.jpg" alt="Негор">
+        <div>
+          <h3>Негор</h3>
+          <p>С юным задором бросает вызов богам тенниса, несмотря на свои падения.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Раздел: Топ 3 -->
+    <section id="top3">
+      <h2>Топ 3 Сильнейших Игрока за всю историю</h2>
+      <ol>
+        <li>
+          <h3>1. Шмель</h3>
+          <p>Легенда, вдохновившая множество юных спортсменов.</p>
+        </li>
+        <li>
+          <h3>2. Бахмут</h3>
+          <p>Его стальные нервы и мастерство сделали его иконой игры.</p>
+        </li>
+        <li>
+          <h3>3. Амир</h3>
+          <p>С безграничным потенциалом он обещает покорить вершины тенниса.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Новый раздел: Новости -->
+    <section id="news">
+      <h2>Новости</h2>
+      <div class="slider">
+        <div class="slides">
+          <!-- Слайд 1 -->
+          <div class="slide">
+            <img src="2025-02-12 15.42.19.jpg" alt="Новость 1">
+            <h3>Новый турнир в этом месяце</h3>
+            <p>Школьный теннис готовится к проведению нового турнира. Ждём ярких матчей и новых рекордов!</p>
+          </div>
+          <!-- Слайд 2 -->
+          <div class="slide">
+            <img src="2025-02-12 15.42.37.jpg" alt="Новость 2">
+            <h3>Обновление тренировочных программ</h3>
+            <p>Наши тренеры внедряют новые методики, позволяющие быстрее достигать высоких результатов.</p>
+          </div>
+          <!-- Слайд 3 -->
+          <div class="slide">
+            <img src="2025-02-12 15.42.46.jpg" alt="Новость 3">
+            <h3>Интервью с чемпионским игроком</h3>
+            <p>Узнайте секреты успеха от одного из самых известных игроков нашего клуба.</p>
+          </div>
+        </div>
+        <button class="prev" aria-label="Предыдущая новость">&#10094;</button>
+        <button class="next" aria-label="Следующая новость">&#10095;</button>
+      </div>
+    </section>
+
+    <!-- Новый раздел: Контакты -->
+    <section id="contact">
+      <h2>Контакты</h2>
+      <div class="contact-form">
+        <form id="contactForm" novalidate>
+          <label for="name">Имя</label>
+          <input type="text" id="name" name="name" placeholder="Ваше имя" required>
+
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="Ваш email" required>
+
+          <label for="message">Сообщение</label>
+          <textarea id="message" name="message" rows="5" placeholder="Ваше сообщение" required></textarea>
+
+          <button type="submit">Отправить</button>
+          <p id="formMessage" style="text-align:center; margin-top:10px;"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Подвал сайта -->
+  <footer>
+    <p>&copy; 2025 Школьный Теннис. Все права защищены.</p>
+  </footer>
+
+  <!-- Кнопка "Наверх" -->
+  <button id="back-to-top" aria-label="Наверх">&#8679;</button>
+
+  <script>
+    // Кнопка "Наверх"
+    const backToTopButton = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+      backToTopButton.classList.toggle('show', window.pageYOffset > 300);
+    });
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Подсветка активного пункта меню
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('nav a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 80;
+        if (pageYOffset >= sectionTop) {
+          current = section.getAttribute('id');
+        }
+      });
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+    // Слайдер новостей
+    const slides = document.querySelector('.slides');
+    const slideItems = document.querySelectorAll('.slide');
+    const prevButton = document.querySelector('.prev');
+    const nextButton = document.querySelector('.next');
+    let currentSlide = 0;
+    const totalSlides = slideItems.length;
+
+    function updateSlider() {
+      slides.style.transform = 'translateX(' + (-currentSlide * 100) + '%)';
+    }
+    prevButton.addEventListener('click', () => {
+      currentSlide = (currentSlide === 0) ? totalSlides - 1 : currentSlide - 1;
+      updateSlider();
+    });
+    nextButton.addEventListener('click', () => {
+      currentSlide = (currentSlide === totalSlides - 1) ? 0 : currentSlide + 1;
+      updateSlider();
+    });
+
+    // Автопрокрутка слайдера каждые 5 секунд
+    setInterval(() => {
+      currentSlide = (currentSlide === totalSlides - 1) ? 0 : currentSlide + 1;
+      updateSlider();
+    }, 5000);
+
+    // Обработка формы "Контакты"
+    const contactForm = document.getElementById('contactForm');
+    const formMessage = document.getElementById('formMessage');
+
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Простейшая валидация (при необходимости можно расширить)
+      if (contactForm.checkValidity()) {
+        formMessage.textContent = "Спасибо за ваше сообщение!";
+        formMessage.style.color = "lightgreen";
+        contactForm.reset();
+      } else {
+        formMessage.textContent = "Пожалуйста, заполните все поля корректно.";
+        formMessage.style.color = "tomato";
+      }
+    });
+  </script>
+</body>
+</html>
