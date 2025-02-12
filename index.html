@@ -141,7 +141,7 @@
       from { opacity: 0; transform: translateY(-20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    /* Кнопка "Наверх" */
+    
     #back-to-top {
       position: fixed;
       bottom: 30px;
@@ -233,7 +233,7 @@
     .contact-form button:hover {
       background-color: var(--hover-color);
     }
-    /* Адаптивные стили */
+    
     @media (max-width: 768px) {
       .player {
         flex-direction: column;
@@ -255,12 +255,12 @@
   </style>
 </head>
 <body>
-  <!-- Шапка сайта -->
+  
   <header>
     <h1>Школьный Теннис</h1>
   </header>
   
-  <!-- Основное меню -->
+  
   <nav aria-label="Основное меню">
     <a href="#about" class="nav-link">О Теннисе</a>
     <a href="#players" class="nav-link">Лучшие Игроки</a>
@@ -269,7 +269,7 @@
     <a href="#contact" class="nav-link">Контакты</a>
   </nav>
 
-  <!-- Основной контент -->
+  
   <main>
     <!-- Раздел: О школьном теннисе -->
     <section id="about">
@@ -282,7 +282,7 @@
       </p>
     </section>
 
-    <!-- Раздел: Лучшие Игроки -->
+    
     <section id="players">
       <h2>Лучшие Игроки</h2>
       
@@ -402,7 +402,7 @@
       </ol>
     </section>
 
-    <!-- Новый раздел: Новости -->
+    
     <section id="news">
       <h2>Новости</h2>
       <div class="slider">
@@ -431,7 +431,7 @@
       </div>
     </section>
 
-    <!-- Новый раздел: Контакты -->
+    
     <section id="contact">
       <h2>Контакты</h2>
       <div class="contact-form">
@@ -452,16 +452,16 @@
     </section>
   </main>
 
-  <!-- Подвал сайта -->
+ 
   <footer>
     <p>&copy; 2025 Школьный Теннис. Все права защищены.</p>
   </footer>
 
-  <!-- Кнопка "Наверх" -->
+  
   <button id="back-to-top" aria-label="Наверх">&#8679;</button>
 
   <script>
-    // Кнопка "Наверх"
+    
     const backToTopButton = document.getElementById('back-to-top');
     window.addEventListener('scroll', () => {
       backToTopButton.classList.toggle('show', window.pageYOffset > 300);
@@ -470,7 +470,7 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // Подсветка активного пункта меню
+    
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('nav a');
     window.addEventListener('scroll', () => {
@@ -489,7 +489,7 @@
       });
     });
 
-    // Слайдер новостей
+    
     const slides = document.querySelector('.slides');
     const slideItems = document.querySelectorAll('.slide');
     const prevButton = document.querySelector('.prev');
@@ -509,19 +509,19 @@
       updateSlider();
     });
 
-    // Автопрокрутка слайдера каждые 5 секунд
+    
     setInterval(() => {
       currentSlide = (currentSlide === totalSlides - 1) ? 0 : currentSlide + 1;
       updateSlider();
     }, 5000);
 
-    // Обработка формы "Контакты"
+    
     const contactForm = document.getElementById('contactForm');
     const formMessage = document.getElementById('formMessage');
 
     contactForm.addEventListener('submit', function(e) {
       e.preventDefault();
-      // Простейшая валидация (при необходимости можно расширить)
+      
       if (contactForm.checkValidity()) {
         formMessage.textContent = "Спасибо за ваше сообщение!";
         formMessage.style.color = "lightgreen";
